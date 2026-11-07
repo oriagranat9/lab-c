@@ -11,36 +11,42 @@ dc_vals = [0.8776, 0.8878, 0.883, 0.8883, 0.8887, 0.8839, 0.8809]
 dc_avg = np.mean(dc_vals)
 print("Average of dc_vals:", dc_avg)
 
+# dc,z_zmin,z_max
 vals = [
-    (1.0225, 1636),
-    (1.0987, 1663),
-    (1.1817, 1693),
-    (1.2734, 1719),
-    (1.3803, 1757),  # 5
-    (1.478, 1791),
-    (1.5206, 1806),
+    (1.0225, 1636, 1781),
+    (1.0987, 1663, 1905),
+    (1.1817, 1693, 2029),
+    (1.2734, 1719, 2171),
+    (1.3803, 1757, 2326),  # 5
+    (1.478, 1791, 2480),
+    (1.5206, 1806, 2538),
     # (1.4, 1792),
     # (1.1723, 1735),#9
-    (1.1723, 1685),
-    (1.2406, 1706),
-    (1.3370, 1740),
-    (1.0572, 1644),
-    (0.9864, 1621),
-    (1.3337, 1738),
-    (1.4346, 1772),
-    (1.4815, 1791),
-    (1.3167, 1736),
-    (1.2727, 1718),
-    (1.457, 1783),
+    (1.1723, 1685, 2022),
+    (1.2406, 1706, 2123),
+    (1.3370, 1740, 2268),
+    (1.0572, 1644, 1840), #
+    (0.9864, 1621, 1734),
+    (1.3337, 1738, 2263),
+    (1.4346, 1772, 2415),
+    (1.4815, 1791, 2489),
+    (1.3167, 1736, 2238),
+    (1.2727, 1718, 2175),
+    (1.457, 1783, 2457),
 ]
 x = [v[0] for v in vals]
 # y min values with z_0 reduced
-y = [v[1] - z_0_px for v in vals]
+y_min = [v[1] - z_0_px for v in vals]
+y_max = [v[2] - z_0_px for v in vals]
 
-
-plt.scatter(x, y)
+plt.scatter(x, y_min, label="y_min")
+plt.scatter(x, y_max, label="y_max")
+for i in range(len(x)):
+    plt.annotate(str(i), (x[i], y_min[i]), textcoords="offset points", xytext=(0, 5), ha="center")
+    plt.annotate(str(i), (x[i], y_max[i]), textcoords="offset points", xytext=(0, 5), ha="center")
 plt.title("Measurement vs Pixel value")
 plt.xlabel("Measurement")
 plt.ylabel("Pixel value")
+plt.legend()
 plt.grid(True)
 plt.show()
